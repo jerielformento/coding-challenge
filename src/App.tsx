@@ -10,6 +10,11 @@ import {
 import { useEffect, useState } from "react";
 import { handleSendMessage } from "@/services/webhook";
 
+interface sendMessageProps {
+  slackWebHookUrl: string;
+  candidateName: string;
+  messageValue: string;
+}
 function App() {
   const candidateName = "Jeriel Formento";
   const [buttonName, setButtonName] = useState("Send");
@@ -17,6 +22,19 @@ function App() {
   const [messageValue, setMessageValue] = useState<string>("");
   const [slackWebHookUrl, setSlackWebhookUrl] = useState<string>("");
   const [intervalType, setIntervalType] = useState<string>("");
+
+  const handleSendMessage = async ({
+    slackWebHookUrl,
+    candidateName,
+    messageValue,
+  }: sendMessageProps) => {
+    await fetch(slackWebHookUrl, {
+      method: "POST",
+      body: JSON.stringify({
+        text: `${candidateName}'s Slack Bot: ${messageValue}`,
+      }),
+    }).finally(() => console.log("ok sent"));
+  };
 
   const setCountdownTimer = () => {
     const timer =
@@ -34,7 +52,7 @@ function App() {
     console.log(countdown);
 
     const countdownInterval = setInterval(() => {
-      handleSendMessage(slackWebHookUrl, candidateName, messageValue);
+      handleSendMessage({ slackWebHookUrl, candidateName, messageValue });
       clearInterval(countdownInterval);
       alert("Message sent!");
     }, countdown);

@@ -8,7 +8,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useEffect, useState } from "react";
-import { handleSendMessage } from "@/services/webhook";
 
 interface sendMessageProps {
   slackWebHookUrl: string;

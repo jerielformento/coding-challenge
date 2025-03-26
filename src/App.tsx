@@ -30,7 +30,7 @@ function App() {
     await fetch(slackWebHookUrl, {
       method: "POST",
       body: JSON.stringify({
-        text: `${candidateName}'s Slack Bot: ${messageValue}`,
+        text: `From ${candidateName}'s Slack Bot: ${messageValue}`,
       }),
     }).finally(() => console.log("ok sent"));
   };
@@ -64,7 +64,7 @@ function App() {
   };
 
   useEffect(() => {
-    setButtonName(`Send ${delayInputValue} ${intervalType}`);
+    setButtonName(`Send in ${delayInputValue} ${intervalType}`);
   }, [delayInputValue, intervalType]);
 
   return (
